@@ -22,10 +22,11 @@
 
         <!-- Dependency versions -->
         <deltaspike.version>1.8.1</deltaspike.version>
-        <wildfly-swarm.version>2018.4.1</wildfly-swarm.version>
-        <slf4j-api.version>1.7.25</slf4j-api.version>
+        <wildfly-swarm.version>2018.5.0</wildfly-swarm.version>
+        <slf4j-api.version>1.6.3</slf4j-api.version>
         <commons-io.commons-io.version>1.3.2</commons-io.commons-io.version>
         <org.apache.common-exec.version>1.3</org.apache.common-exec.version>
+        <org.wildfly.config-api.version>1.3.1</org.wildfly.config-api.version> <!-- Fix for https://issues.jboss.org/browse/SWARM-2015 -->
 
         <!-- Plugin versions -->
         <fabric8.maven.plugin.version>3.5.38</fabric8.maven.plugin.version>
@@ -48,6 +49,12 @@
                 <version>${wildfly-swarm.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <exclusions> <!-- Fix for https://issues.jboss.org/browse/SWARM-2015 -->
+                    <exclusion>
+                        <groupId>org.wildfly.swarm</groupId>
+                        <artifactId>config-api-runtime</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -80,6 +87,13 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <dependency> <!-- Fix for https://issues.jboss.org/browse/SWARM-2015 -->
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>config-api-runtime</artifactId>
+            <version>${org.wildfly.config-api.version}</version>
+        </dependency>
+
         <!-- Dependencies wildfly-swarm fractions -->
         <dependency>
             <groupId>org.wildfly.swarm</groupId>
